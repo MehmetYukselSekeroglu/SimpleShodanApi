@@ -3,6 +3,9 @@ import requests
 import argparse
 from colorama import *
 import sys
+import os
+
+
 api_path = "ApiKey.json"
 
 
@@ -19,6 +22,8 @@ AllArgumants.add_argument("--ip",required=True,help="Hedef host ip adresi. --ip 
 argumanlar = vars(AllArgumants.parse_args())
 input_ip = argumanlar["ip"]
 
+if not os.path.exists("log/") and not os.path.isdir("log/"):
+    os.mkdir("log")
 
 a = "-"*20
 def GetIpQuery(ip_addrs):
@@ -87,7 +92,7 @@ else:
     for key in ShodanQuery:
         if key == "data":
             filename = f"RawDatFor-{input_ip}.txt"
-            with open(f"tmp/{filename}","w") as file:
+            with open(f"log/{filename}","w") as file:
                 data = ShodanQuery[key]
                 file.write(str(data))
                 continue
